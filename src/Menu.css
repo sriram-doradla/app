@@ -1,0 +1,19 @@
+.menu-page {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .profile-pic {
+    width: 150px;          /* Set desired size for profile picture */
+    height: 150px;         /* Set desired size for profile picture */
+    border-radius: 50%;    /* Circular profile picture */
+    margin: 20px 0;        /* Space above and below the picture */
+  }
+  
+  input[type="file"] {
+    margin: 10px 0;        /* Space above the file input */
+    display: block;        /* Center file input */
+    margin-left: auto;
+    margin-right: auto;
+  }
+  

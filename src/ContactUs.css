@@ -1,0 +1,52 @@
+.contact-container {
+    color: #333; /* Text color */
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* Light background for contrast */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    margin: 20px;
+  }
+  
+  .contact-container h1, .contact-container h2 {
+    color: #ff4d4d; /* Highlighted color for headings */
+    margin-bottom: 15px;
+  }
+  
+  .contact-container p, .contact-container ul {
+    color: #555; /* Neutral color for body text */
+    line-height: 1.6;
+  }
+  
+  .contact-container ul {
+    list-style-type: none; /* Remove bullets */
+    padding-left: 0;
+  }
+  
+  .contact-container li {
+    margin-bottom: 10px;
+  }
+  
+  .contact-container a {
+    color: #007bff; /* Link color */
+    text-decoration: none;
+  }
+  
+  .contact-container a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Styling the social media links */
+  .contact-container a:hover {
+    color: #ff4d4d;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .contact-container {
+      padding: 15px;
+    }
+  
+    .contact-container h1, .contact-container h2 {
+      font-size: 1.5em;
+    }
+  }

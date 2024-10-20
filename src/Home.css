@@ -1,0 +1,74 @@
+/* Home.css */
+
+html, body {
+    height: 100%; /* Ensure the body takes the full height */
+    margin: 0; /* Remove default margin */
+}
+
+.home-container {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    height: 100vh; /* Full height of the viewport */
+    width: 100vw; /* Full width of the viewport */
+    background-image: url('./assets/home1.jpg'); /* Replace with your image path */
+    background-size: cover; /* Cover the entire container */
+    background-position: center; /* Center the background image */
+    color: white; /* Text color for visibility */
+    text-align: center; /* Center text */
+    position: relative; /* Allow positioning of footer buttons */
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 20px; /* Space between buttons */
+    margin-top: 20px; /* Space above buttons */
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(255, 182, 193, 0.8); /* Light pink with transparency */
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s; /* Add transition for transform */
+}
+
+button:hover {
+    background-color: rgba(255, 182, 193, 1); /* Solid color on hover */
+    transform: scale(1.05); /* Slightly scale up on hover */
+}
+
+.footer-buttons {
+    position: absolute; /* Position at the bottom */
+    bottom: 20px; /* Space from the bottom */
+    width: 100%; /* Full width */
+    display: flex; /* Flexbox for positioning */
+    justify-content: space-between; /* Space between buttons */
+    padding: 0 20px; /* Padding on left and right */
+}
+
+.footer-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(255, 182, 193, 0.8); /* Light pink with transparency */
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s; /* Add transition for transform */
+}
+
+.footer-button:hover {
+    background-color: rgba(255, 182, 193, 1); /* Solid color on hover */
+    transform: scale(1.05); /* Slightly scale up on hover */
+}
+
+a {
+    text-decoration: none; /* Remove underline from links */
+    color: inherit; /* Inherit color from button */
+}
