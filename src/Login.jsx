@@ -1,16 +1,28 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import axios from "axios";
 
 const Login = ({ onLogin }) => {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate(); // Use useNavigate to get the navigate function
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Pass navigate as an argument to the onLogin function
-    onLogin(userId, password, navigate);
+    try {
+      const response = await axios.post('https://ram-o7av.onrender.com/api/login', { userId, password });
+      
+      if (response.data.success && response.data.user) {
+        console.log('Login successful, user:', response.data.user);
+        onLogin(response.data.user, navigate); 
+        alert('Logged in successfully!');
+      } else {
+        alert('Invalid credentials');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      alert('Error logging in. Please try again.');
+    }
   };
 
   return (

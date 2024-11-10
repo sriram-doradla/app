@@ -1,53 +1,47 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Register.css'; 
+import axios from 'axios';
 
-const interestsOptions = [
-  { label: 'Traveling', value: 'traveling' },
-  { label: 'Cooking', value: 'cooking' },
-  { label: 'Sports', value: 'sports' },
-  { label: 'Music', value: 'music' },
-  { label: 'Art', value: 'art' },
-  { label: 'Reading', value: 'reading' },
-  // Add more interests as needed
-];
-
-const Register = ({ onRegister }) => {
-  const [name, setName] = useState('');
-  const [userId, setUserId] = useState('');
-  const [password, setPassword] = useState('');
-  const [description, setDescription] = useState('');
-  const [interests, setInterests] = useState([]);
-  const [profileImage, setProfileImage] = useState(null);
+const Register = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    userId: '',
+    password: '',
+    description: '',
+    interests: '',
+    profileImage: '',
+    gender: '', // Added gender field
+  });
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleInterestChange = (e) => {
-    const value = e.target.value;
-    setInterests((prevInterests) => 
-      prevInterests.includes(value)
-        ? prevInterests.filter((interest) => interest !== value)
-        : [...prevInterests, value]
-    );
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setProfileImage(URL.createObjectURL(file));
-    }
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const newUser = { name, userId, password, interests, description, profileImage };
-    onRegister(newUser);
-    setName('');
-    setUserId('');
-    setPassword('');
-    setDescription('');
-    setInterests([]);
-    setProfileImage(null);
-    navigate('/login');
+    
+    try {
+      const interestsArray = formData.interests.split(',').map((item) => item.trim());
+
+      const user = {
+        ...formData,
+        interests: interestsArray,
+      };
+
+      const response = await axios.post('https://ram-o7av.onrender.com/api/register', user);
+
+      if (response.status === 201) {
+        navigate('/login');
+      }
+    } catch (err) {
+      setError('Error registering user: ' + (err.response?.data?.message || 'Please try again later'));
+    }
   };
 
   return (
@@ -57,63 +51,39 @@ const Register = ({ onRegister }) => {
         <form onSubmit={handleSubmit}>
           <div>
             <label>Name:</label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
+            <input type="text" name="name" value={formData.name} onChange={handleInputChange} required />
           </div>
           <div>
             <label>User ID:</label>
-            <input
-              type="text"
-              value={userId}
-              onChange={(e) => setUserId(e.target.value)}
-              required
-            />
+            <input type="text" name="userId" value={formData.userId} onChange={handleInputChange} required />
           </div>
           <div>
             <label>Password:</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <input type="password" name="password" value={formData.password} onChange={handleInputChange} required />
           </div>
           <div>
             <label>Description:</label>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              rows="4"
-              placeholder="Tell us about yourself"
-              required
-            />
+            <input type="text" name="description" value={formData.description} onChange={handleInputChange} />
           </div>
           <div>
-            <label>Interests:</label>
-            <div className="interest-container">
-              {interestsOptions.map((interest) => (
-                <div key={interest.value}>
-                  <input
-                    type="checkbox"
-                    value={interest.value}
-                    checked={interests.includes(interest.value)}
-                    onChange={handleInterestChange}
-                  />
-                  <label>{interest.label}</label>
-                </div>
-              ))}
-            </div>
+            <label>Interests (comma-separated):</label>
+            <input type="text" name="interests" value={formData.interests} onChange={handleInputChange} />
           </div>
           <div>
-            <label>Profile Image:</label>
-            <input type="file" accept="image/*" onChange={handleFileChange} />
-            {profileImage && <img src={profileImage} alt="Profile Preview" style={{ width: '100px', height: '100px' }} />}
+            <label>Profile Image URL:</label>
+            <input type="text" name="profileImage" value={formData.profileImage} onChange={handleInputChange} />
+          </div>
+          <div>
+            <label>Gender:</label>
+            <select name="gender" value={formData.gender} onChange={handleInputChange} required>
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
           </div>
           <button type="submit">Register</button>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
         </form>
       </div>
     </div>
