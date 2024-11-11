@@ -1,11 +1,10 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  base: '/', // Set to root for Render deployment
+  base: '/', // Use the root for Render deployment
 
-  plugins: [react()], // Use the React plugin
+  plugins: [react()],
 
   server: {
     proxy: {
@@ -13,6 +12,16 @@ export default defineConfig({
         target: 'https://ram-o7av.onrender.com', // Your Express server address
         changeOrigin: true,
         secure: false,
+      },
+    },
+  },
+
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets', // Ensure assets are correctly bundled
+    rollupOptions: {
+      output: {
+        manualChunks: undefined, // Keeps assets in a single chunk
       },
     },
   },
